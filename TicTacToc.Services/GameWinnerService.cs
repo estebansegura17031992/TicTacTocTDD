@@ -4,27 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TicTacToe.Services
+namespace TicTacToc.Services
 {
     public interface IGameWinnerService
     {
         char Validate(char[,] gameBoard);
     }
 
-    public class GameWinnerService:IGameWinnerService
+    public class GameWinnerService : IGameWinnerService
     {
         private const char SymbolForNoWinner = ' ';
         private char actualSymbol;
-        private char[] threeInARow = new char[3] { ' ',' ',' '};
+        private char[] threeInARow = new char[3] { ' ', ' ', ' ' };
 
         public char Validate(char[,] gameBoard)
         {
             var currentWinnerSymbol = SymbolForNoWinner;
             currentWinnerSymbol = CheckForThreeInARowInHorizontalRow(gameBoard);
-            if(currentWinnerSymbol == SymbolForNoWinner)
+            if (currentWinnerSymbol == SymbolForNoWinner)
             {
                 currentWinnerSymbol = CheckForThreeInARowInAVerticalColumn(gameBoard);
-                if(currentWinnerSymbol == SymbolForNoWinner)
+                if (currentWinnerSymbol == SymbolForNoWinner)
                 {
                     currentWinnerSymbol = CheckForThreeInARowDiagonally(gameBoard);
                 }
@@ -34,14 +34,14 @@ namespace TicTacToe.Services
 
         private char CheckForThreeInARowInHorizontalRow(char[,] gameBoard)
         {
-            for(var horizontalRow = 0;horizontalRow < 3; horizontalRow++)
+            for (var horizontalRow = 0; horizontalRow < 3; horizontalRow++)
             {
-                for(var verticalRow = 0;verticalRow < 3; verticalRow++)
+                for (var verticalRow = 0; verticalRow < 3; verticalRow++)
                 {
                     threeInARow[verticalRow] = gameBoard[horizontalRow, verticalRow];
                 }
                 actualSymbol = CheckForAWinner(threeInARow);
-                if(actualSymbol != SymbolForNoWinner)
+                if (actualSymbol != SymbolForNoWinner)
                 {
                     return actualSymbol;
                 }
@@ -77,7 +77,7 @@ namespace TicTacToe.Services
                 verticalRow--;
             }
             actualSymbol = CheckForAWinner(threeInARow);
-            if(actualSymbol == SymbolForNoWinner)
+            if (actualSymbol == SymbolForNoWinner)
             {
                 actualSymbol = CheckForAWinner(threeInAInverseRow);
             }
@@ -86,7 +86,7 @@ namespace TicTacToe.Services
 
         private static char CheckForAWinner(char[] LineChar)
         {
-            if(LineChar[0] == LineChar[1] &&
+            if (LineChar[0] == LineChar[1] &&
                 LineChar[1] == LineChar[2])
             {
                 return LineChar[0];
